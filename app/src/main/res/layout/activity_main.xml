@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Imagen de fondo -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/mount"
+        android:scaleType="centerCrop"
+        android:contentDescription="Background image" />
+
+    <!-- Overlay oscuro para mejorar contraste del texto -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:alpha="0.5" />
+
+    <!-- ScrollView con contenido -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="32dp"
+            android:gravity="center_horizontal"
+            tools:context=".MainActivity">
+
+        <!-- Espaciador superior -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
+
+        <!-- Título principal con Font Quattrocento Bold y estilo elegante -->
+        <TextView
+            android:id="@+id/txtAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Serenum"
+            android:textSize="52sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:fontFamily="@font/quattrocentobold"
+            android:letterSpacing="0.05"
+            android:layout_marginBottom="16dp"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="3"
+            android:shadowRadius="4" />
+
+        <!-- Subtítulo descriptivo con Font Quattrocento Regular -->
+        <TextView
+            android:id="@+id/txtSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tu compañero de bienestar"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/quattrocentoregular"
+            android:layout_marginBottom="60dp"
+            android:alpha="0.9"
+            android:letterSpacing="0.02" />
+
+        <!-- Espaciador intermedio -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="110dp" />
+
+        <!-- Botón Google Sign In con estilo Serenum -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGoogle"
+            android:layout_width="280dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Iniciar sesión con Google"
+            android:textSize="15sp"
+            android:fontFamily="@font/quattrocentobold"
+            app:cornerRadius="12dp"
+            app:backgroundTint="@color/secondary"
+            android:textColor="@color/white"
+            android:layout_marginBottom="16dp"
+            app:elevation="4dp"
+            app:strokeWidth="0dp"
+            android:letterSpacing="0.02" />
+
+        <!-- Botón Iniciar Sesión con Correo - Material Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLoginEmail"
+            android:layout_width="280dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Iniciar sesión con correo"
+            android:textSize="15sp"
+            android:fontFamily="@font/quattrocentobold"
+            app:cornerRadius="12dp"
+            app:backgroundTint="@color/primary"
+            android:textColor="@color/white"
+            android:layout_marginBottom="20dp"
+            app:elevation="4dp"
+            app:strokeWidth="0dp"
+            android:letterSpacing="0.02" />
+
+        <!-- Divisor visual sutil -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/text_hint"
+            android:alpha="0.3"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Espaciador inferior grande -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
+
+        <!-- Enlace para crear cuenta - Al final del todo -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/txtGoRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿No tienes cuenta? Crear una nueva"
+            android:textSize="14sp"
+            android:fontFamily="@font/quattrocentoregular"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            app:rippleColor="@color/primary_light"
+            android:textColor="@color/white"
+            android:layout_marginBottom="20dp"
+            android:letterSpacing="0.01" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>
+
