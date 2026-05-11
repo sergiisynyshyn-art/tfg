@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores primarios - Azul cielo medio -->
+    <color name="primary">#3F7FB0</color>
+    <color name="primary_light">#6FA7CF</color>
+    <color name="primary_dark">#2A5E86</color>
+
+    <!-- Colores secundarios - Azul cielo claro -->
+    <color name="secondary">#5FA8D3</color>
+    <color name="secondary_light">#8CC3E3</color>
+    <color name="secondary_dark">#3D86B3</color>
+
+    <!-- Colores terciarios - Pastel neutro -->
+    <color name="tertiary">#A8C68F</color>
+    <color name="tertiary_light">#C4DEB3</color>
+    <color name="tertiary_dark">#7FA967</color>
+
+    <!-- Colores de fondo -->
+    <color name="background_soft">#F8F9FB</color>
+    <color name="background_white">#FFFFFF</color>
+    <color name="surface_light">#F0F2F7</color>
+
+    <!-- Colores de texto -->
+    <color name="text_primary">#2C3E50</color>
+    <color name="text_secondary">#7F8C8D</color>
+    <color name="text_hint">#BDC3C7</color>
+
+    <!-- Colores especiales -->
+    <color name="google_blue">#4A90E2</color>
+    <color name="success">#A8C68F</color>
+    <color name="error">#D4A5A5</color>
+    <color name="warning">#E9C589</color>
+
+    <!-- Compatibilidad -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
