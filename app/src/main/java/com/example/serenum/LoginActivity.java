@@ -2,6 +2,7 @@ package com.example.serenum;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 
@@ -19,6 +20,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 /**
  * LoginActivity proporciona la interfaz de inicio de sesión con Google y correo.
@@ -28,6 +33,12 @@ public class LoginActivity extends AppCompatActivity {
 
     // Cliente de Google Sign-In
     private GoogleSignInClient mGoogleSignInClient;
+
+    // Firebase Auth para autenticar realmente al usuario
+    private FirebaseAuth firebaseAuth;
+
+    // Web client id generado por google-services; puede no existir si Firebase no está completo
+    private String webClientId;
 
     // DatabaseHelper para gestionar la BD
     private DatabaseHelper databaseHelper;
@@ -51,6 +62,9 @@ public class LoginActivity extends AppCompatActivity {
         // Inicializar el DatabaseHelper
         databaseHelper = new DatabaseHelper(this);
 
+        // Inicializar FirebaseAuth
+        firebaseAuth = FirebaseAuth.getInstance();
+
         // Configurar Google Sign-In
         configurarGoogleSignIn();
 
@@ -63,15 +77,23 @@ public class LoginActivity extends AppCompatActivity {
      * Se configura para obtener el nombre, email e ID de Google del usuario.
      */
     private void configurarGoogleSignIn() {
+        webClientId = obtenerWebClientId();
+
         // Configurar las opciones de Google Sign-In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions.Builder gsoBuilder = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 // Solicitar el email básico del usuario
                 .requestEmail()
                 // Opcional: solicitar ID del usuario de Google
                 .requestId()
                 // Opcional: solicitar perfil del usuario
-                .requestProfile()
-                .build();
+                .requestProfile();
+
+        // Si Firebase generó un web client id, lo usamos para obtener el idToken
+        if (!TextUtils.isEmpty(webClientId)) {
+            gsoBuilder.requestIdToken(webClientId);
+        }
+
+        GoogleSignInOptions gso = gsoBuilder.build();
 
         // Crear cliente de Google Sign-In
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -98,6 +120,11 @@ public class LoginActivity extends AppCompatActivity {
 
         // Listener para el botón Google
         btnGoogle.setOnClickListener(v -> {
+            if (mGoogleSignInClient == null) {
+                mostrarError("Google Sign-In no está configurado correctamente");
+                return;
+            }
+
             // Mostrar mensaje de inicio de sesión
             Toast.makeText(LoginActivity.this,
                     "Iniciando sesión con Google...",
@@ -139,22 +166,46 @@ public class LoginActivity extends AppCompatActivity {
             googleSignInAccount = task.getResult(ApiException.class);
 
             if (googleSignInAccount != null) {
-                // Extraer datos del usuario
+                // Extraer datos del usuario de Google
                 String nombre = googleSignInAccount.getDisplayName();
                 String email = googleSignInAccount.getEmail();
                 String googleId = googleSignInAccount.getId();
 
                 // Validar que los datos no sean nulos
-                if (nombre != null && email != null && googleId != null) {
-                    // Mostrar mensaje de éxito de autenticación
-                    Toast.makeText(this,
-                            "¡Autenticación exitosa! " + nombre,
-                            Toast.LENGTH_SHORT).show();
-
-                    // Guardar datos en SQLite
-                    guardarUsuarioEnBD(nombre, email, googleId);
-                } else {
+                if (nombre == null || email == null || googleId == null) {
                     mostrarError("Algunos datos del usuario no están disponibles");
+                    return;
+                }
+
+                // Si existe idToken, autenticamos con Firebase. Si no, seguimos con el flujo existente.
+                String idToken = googleSignInAccount.getIdToken();
+                if (!TextUtils.isEmpty(idToken)) {
+                    AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+                    firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, authTask -> {
+                        if (authTask.isSuccessful()) {
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            if (user != null) {
+                                Toast.makeText(this,
+                                        "¡Autenticación Firebase exitosa! " + nombre,
+                                        Toast.LENGTH_SHORT).show();
+                                guardarUsuarioEnBD(nombre, email, googleId);
+                            } else {
+                                mostrarError("Firebase autenticó pero el usuario no está disponible");
+                            }
+                        } else {
+                            String error = authTask.getException() != null ? authTask.getException().getMessage() : "error desconocido";
+                            mostrarError("Error en Firebase Auth: " + error);
+                            // Fallback: si Google Sign-In funciona pero Firebase no está completo, mantenemos el flujo existente.
+                            guardarUsuarioEnBD(nombre, email, googleId);
+                        }
+                    });
+                } else {
+                    Toast.makeText(this,
+                            "Google Sign-In completado, pero falta configurar Firebase Auth (idToken no disponible)",
+                            Toast.LENGTH_LONG).show();
+
+                    // Fallback para no romper el flujo si Firebase aún no está completo
+                    guardarUsuarioEnBD(nombre, email, googleId);
                 }
             }
 
@@ -287,10 +338,24 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // Verificar si el usuario ya está autenticado
+        FirebaseUser currentUser = firebaseAuth != null ? firebaseAuth.getCurrentUser() : null;
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null) {
+        if (currentUser != null || account != null) {
             // Si el usuario ya está autenticado, ir a MainActivity
             navegarAMainActivity();
         }
+    }
+
+    /**
+     * Obtiene el web client id generado por Google Services si existe.
+     *
+     * @return web client id o null si aún no está disponible
+     */
+    private String obtenerWebClientId() {
+        int resId = getResources().getIdentifier("default_web_client_id", "string", getPackageName());
+        if (resId == 0) {
+            return null;
+        }
+        return getString(resId);
     }
 }
