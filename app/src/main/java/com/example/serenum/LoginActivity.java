@@ -2,8 +2,8 @@ package com.example.serenum;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.Toast;
+import com.google.android.material.button.MaterialButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -81,10 +81,10 @@ public class LoginActivity extends AppCompatActivity {
      * Configura los listeners (escuchadores) de los botones del login.
      */
     private void setupLoginButtons() {
-        // Obtener referencias a los botones desde el layout XML
-        Button btnLoginEmail = findViewById(R.id.btnLoginEmail);
-        Button btnGoogle = findViewById(R.id.btnGoogle);
-        Button txtGoRegister = findViewById(R.id.txtGoRegister);
+        // Obtener referencias a los botones desde el layout XML (MaterialButton para consistencia)
+        MaterialButton btnLoginEmail = findViewById(R.id.btnLoginEmail);
+        MaterialButton btnGoogle = findViewById(R.id.btnGoogle);
+        MaterialButton txtGoRegister = findViewById(R.id.txtGoRegister);
 
         // Crear el ActivityResultLauncher para Google Sign-In
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
