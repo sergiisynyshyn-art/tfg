@@ -9,6 +9,7 @@ activityKtx = "1.8.0"
 constraintlayout = "2.1.4"
 googlePlayServices = "20.1.0"
 materialComponents = "1.11.0"
+jakartaMail = "2.0.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -20,7 +21,7 @@ activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 gms-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "googlePlayServices" }
 material-components = { group = "com.google.android.material", name = "material", version.ref = "materialComponents" }
+jakarta-mail = { group = "com.sun.mail", name = "jakarta.mail", version.ref = "jakartaMail" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-

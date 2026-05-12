@@ -1,8 +1,8 @@
 package com.example.serenum;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -11,7 +11,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
+/**
+ * MainActivity es la pantalla principal de la aplicación Serenum.
+ * Se muestra después de que el usuario ha iniciado sesión correctamente.
+ */
 public class MainActivity extends AppCompatActivity {
+
+    // Cliente de Google Sign-In para cerrar sesión
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,45 +38,67 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Ahora configuramos los listeners (escuchadores) de los botones
-        setupLoginButtons();
+        // Configurar Google Sign-In para cerrar sesión
+        configurarGoogleSignIn();
+
+        // Configurar los listeners de los botones
+        setupButtons();
     }
 
     /**
-     * Este método configura los listeners para los botones del login
+     * Configura Google Sign-In para poder cerrar sesión.
      */
-    private void setupLoginButtons() {
+    private void configurarGoogleSignIn() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestId()
+                .requestProfile()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
+
+    /**
+     * Configura los listeners de los botones de la pantalla principal.
+     */
+    private void setupButtons() {
+        // TODO: Reemplazar con los botones reales de tu layout
         // Obtener referencias a los botones desde el layout XML
-        Button btnLoginEmail = findViewById(R.id.btnLoginEmail);
-        Button btnGoogle = findViewById(R.id.btnGoogle);
-        Button txtGoRegister = findViewById(R.id.txtGoRegister);
+        // Button btnLogout = findViewById(R.id.btnLogout);
+        // Button btnPerfil = findViewById(R.id.btnPerfil);
 
-        // Listener para el botón Google
-        btnGoogle.setOnClickListener(v -> {
+        // Listener para cerrar sesión (ejemplo)
+        // btnLogout.setOnClickListener(v -> cerrarSesion());
+    }
+
+    /**
+     * Cierra la sesión del usuario y vuelve a LoginActivity.
+     */
+    private void cerrarSesion() {
+        mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> {
             Toast.makeText(MainActivity.this,
-                "Google Sign In - pendiente de implementar",
-                Toast.LENGTH_SHORT).show();
+                    "Sesión cerrada",
+                    Toast.LENGTH_SHORT).show();
+
+            // Ir a LoginActivity
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
+    }
 
-        // Listener para el botón "Iniciar sesión con correo"
-        btnLoginEmail.setOnClickListener(v -> {
-            // Cuando el usuario toca el botón, muestra un mensaje temporal (Toast)
-            Toast.makeText(MainActivity.this,
-                "Login con correo - pendiente de implementar",
-                Toast.LENGTH_SHORT).show();
-
-            // TODO: Aquí irá la lógica para abrir la pantalla de login con email
-            // Por ahora solo mostramos el mensaje
-        });
-
-        // Listener para el texto "¿No tienes cuenta?"
-        txtGoRegister.setOnClickListener(v -> {
-            // Cuando el usuario toca el texto, muestra otro mensaje
-            Toast.makeText(MainActivity.this,
-                "Ir a registro - pendiente de implementar",
-                Toast.LENGTH_SHORT).show();
-
-            // TODO: Aquí irá la lógica para abrir la pantalla de registro
-        });
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Verificar si el usuario está autenticado
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account == null) {
+            // Si no está autenticado, ir a LoginActivity
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
     }
 }
