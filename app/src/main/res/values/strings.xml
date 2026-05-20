@@ -1,3 +1,163 @@
 <resources>
     <string name="app_name">Serenum</string>
+    <string name="welcome_title">¡Bienvenido a Serenum!</string>
+    <string name="welcome_title_with_name">¡Bienvenido a Serenum, %1$s!</string>
+    <string name="welcome_message">Tu cuenta de Google se ha conectado correctamente.\n\nTe estamos redirigiendo a la aplicación…</string>
+    <string name="welcome_message_with_email">Tu cuenta de Google (%1$s) se ha conectado correctamente.\n\nTe estamos redirigiendo a la aplicación…</string>
+    <string name="continue_button">Continuar</string>
+    <string name="logout_button">Cerrar sesión</string>
+    <string name="user_avatar">Foto de perfil</string>
+    <string name="background_image">Imagen de fondo</string>
+    <string name="redirecting">Redirigiendo…</string>
+    <string name="last_access">Último acceso: %1$s</string>
+
+    <string name="survey_badge">Encuesta inicial</string>
+    <string name="survey_title">Queremos conocerte un poco mejor</string>
+    <string name="survey_question">¿Qué te gustaría mejorar ahora mismo?</string>
+    <string name="survey_subtitle">Tómatelo con calma: elige lo que más resuene contigo.</string>
+    <string name="survey_goal_wellbeing">Mejorar mi bienestar</string>
+    <string name="survey_goal_stress">Reducir el estrés</string>
+    <string name="survey_goal_sleep">Dormir mejor</string>
+    <string name="survey_goal_balance">Sentirme más equilibrado</string>
+    <string name="survey_goal_focus">Aumentar mi concentración</string>
+    <string name="survey_icon_wellbeing">☀</string>
+    <string name="survey_icon_stress">☁</string>
+    <string name="survey_icon_sleep">☾</string>
+    <string name="survey_icon_balance">☯</string>
+    <string name="survey_icon_focus">◎</string>
+    <string name="survey_select_one_or_more">Elige al menos una opción para continuar</string>
+    <string name="survey_continue">Continuar</string>
+    <string name="survey_selected">Seleccionado</string>
+
+    <!-- Onboarding Strings -->
+    <string name="onboarding_1_title">Encuentra tu equilibrio cada día</string>
+    <string name="onboarding_1_subtitle">Serenum te acompaña en tu camino hacia la calma, el bienestar y la paz interior.</string>
+    <string name="onboarding_2_title">Beneficios que transforman</string>
+    <string name="onboarding_2_subtitle">Reduce el estrés, mejora tu bienestar y conecta contigo mismo mediante prácticas conscientes y mindfulness.</string>
+    <string name="onboarding_3_title">Un espacio para ti</string>
+    <string name="onboarding_3_subtitle">Un lugar creado especialmente para tu calma, equilibrio y crecimiento personal en cada etapa.</string>
+    <string name="onboarding_back">Atrás</string>
+    <string name="onboarding_next">Siguiente</string>
+    <string name="onboarding_continue">Continuar</string>
+    <string name="onboarding_start">Empezar</string>
+
+    <!-- Home Skeleton Strings -->
+    <string name="home_greeting_placeholder">Hola, Serhii 👋</string>
+    <string name="home_profile_access">Abrir perfil</string>
+    <string name="home_recommendation_label">Recomendacion para hoy</string>
+    <string name="home_recommendation_placeholder">Reducir estres</string>
+    <string name="home_recommendation_subtitle">Basado en tu encuesta inicial</string>
+    <string name="home_quick_access_title">Accesos rapidos</string>
+    <string name="home_expandable_title">Contenido destacado</string>
+    <string name="home_meditations">Meditaciones</string>
+    <string name="home_relaxing_sounds">Sonidos relajantes</string>
+    <string name="home_routines">Rutinas</string>
+    <string name="home_short_exercises">Ejercicios breves</string>
+    <string name="home_favorites_title">Favoritos</string>
+    <string name="home_open_favorites">Abrir favoritos</string>
+    <string name="home_cta_start">Comenzar sesion de calma</string>
+    <string name="home_nav_home">Home</string>
+    <string name="home_nav_explore">Explorar</string>
+    <string name="home_nav_favorites">Favoritos</string>
+    <string name="home_nav_profile">Perfil</string>
+    <!-- Meditation card strings -->
+    <string name="meditation_image_desc">Imagen de la meditación</string>
+    <string name="meditation_title">Respiración consciente</string>
+    <string name="meditation_duration">3 min</string>
+    <string name="meditation_description">Una práctica corta para centrarte y reducir tensión.</string>
+    <string name="play_meditation_desc">Reproducir meditación</string>
+    <string name="meditation_screen_title">Respiración consciente</string>
+    <string name="meditation_screen_duration">3 min</string>
+    <string name="meditation_screen_description">Una práctica corta para centrarte y reducir tensión.</string>
+    <string name="meditation_time_default">0:00</string>
+    <string name="meditations_catalog_title">Meditaciones</string>
+    <string name="meditations_catalog_subtitle">Elige una meditación para empezar tu momento de calma.</string>
+    <string name="meditations_back">Atrás</string>
+    <string name="app_back">Volver</string>
+    <string name="meditations_open">Abrir meditación</string>
+    <!-- Sounds catalog strings -->
+    <string name="sounds_catalog_title">Sonidos Relajantes</string>
+    <string name="sounds_catalog_subtitle">Ambientes naturales para tu paz mental.</string>
+    <string name="sounds_open">Escuchar sonido</string>
+    <string name="sound_rain_title">Lluvia relajante</string>
+    <string name="sound_rain_duration">Infinito</string>
+    <string name="sound_rain_description">El suave sonido de la lluvia para calmar tu mente.</string>
+    <string name="sound_fire_title">Fuego acogedor</string>
+    <string name="sound_fire_duration">Infinito</string>
+    <string name="sound_fire_description">El crujir de la leña para un momento de calidez.</string>
+    <string name="sound_forest_title">Bosque profundo</string>
+    <string name="sound_forest_duration">Infinito</string>
+    <string name="sound_forest_description">Pájaros y el viento entre los árboles.</string>
+    <string name="sound_wind_title">Viento suave</string>
+    <string name="sound_wind_duration">Infinito</string>
+    <string name="sound_wind_description">El susurro del viento para despejar tu mente.</string>
+    <string name="sound_waves_title">Olas del mar</string>
+    <string name="sound_waves_duration">Infinito</string>
+    <string name="sound_waves_description">El vaivén del océano para una calma profunda.</string>
+    <!-- Second meditation (placeholder strings) -->
+    <string name="meditation2_title">Reducir estrés</string>
+    <string name="meditation2_duration">3 min</string>
+    <string name="meditation2_description">Meditación para reducir el estrés.</string>
+     <!-- Third meditation: sleep practice -->
+    <string name="meditation3_title">Práctica para dormir</string>
+    <string name="meditation3_duration">3 min</string>
+    <string name="meditation3_description">Meditación guiada para favorecer el sueño profundo.</string>
+     <!-- Routine strings -->
+    <string name="routines_back">Atrás</string>
+    <string name="routines_catalog_title">Rutinas</string>
+    <string name="routines_catalog_subtitle">Secuencias guiadas que combinan meditación, sonidos y mensajes.</string>
+    <string name="routines_open">Abrir rutina</string>
+    <string name="routines_continue">Continuar</string>
+    <string name="routines_finish">Finalizar</string>
+    <string name="routine_image_desc">Imagen de la rutina</string>
+    <string name="routine_title_placeholder">Nombre de la rutina</string>
+    <string name="routine_duration_placeholder">X min</string>
+    <string name="routine_description_placeholder">Descripción de la rutina</string>
+    <string name="routine_step_placeholder">Paso de la rutina</string>
+    <string name="routine_step_title_placeholder">Título del paso</string>
+    <string name="routine_content_placeholder">Contenido del paso</string>
+    <string name="routine_completed_title">¡Rutina completada!</string>
+    <string name="routine_completed_message">Excelente trabajo. Has completado esta secuencia. Espera que esta práctica te haya traído calma y bienestar. ¡Hasta la próxima!</string>
+
+    <!-- Specific routine strings -->
+    <string name="routine_stress_relief_title">Reducir estrés</string>
+    <string name="routine_stress_relief_duration">5 min</string>
+    <string name="routine_stress_relief_description">Una secuencia guiada para calmar tu mente y cuerpo.</string>
+
+    <string name="routine_start_day_title">Empezar el día</string>
+    <string name="routine_start_day_duration">5-6 min</string>
+    <string name="routine_start_day_description">Activa tu mente y cuerpo cuando comienza el día.</string>
+
+    <string name="routine_sleep_better_title">Dormir mejor</string>
+    <string name="routine_sleep_better_duration">6 min</string>
+    <string name="routine_sleep_better_description">Prepárate para una noche de descanso profundo y reparador.</string>
+
+    <!-- Favorites -->
+    <string name="favorites_title">Favoritos</string>
+    <string name="favorites_open">Abrir contenido</string>
+    <string name="favorites_empty">Aun no tienes favoritos. Marca contenidos con la estrella para verlos aqui.</string>
+    <string name="favorite_toggle">Marcar o desmarcar favorito</string>
+    <string name="favorite_added">Añadido a favoritos</string>
+    <string name="favorite_removed">Eliminado de favoritos</string>
+    <string name="favorite_type_meditation">Meditacion</string>
+    <string name="favorite_type_sound">Sonido</string>
+    <string name="favorite_type_routine">Rutina</string>
+    <string name="favorite_content_not_available">Este contenido ya no esta disponible</string>
+    <!-- Profile / Account -->
+    <string name="profile_title">Perfil</string>
+    <string name="profile_edit">Editar datos personales</string>
+    <string name="profile_my_progress">Mi progreso</string>
+    <string name="profile_history">Historial reciente</string>
+    <string name="profile_menu_faq">FAQ</string>
+    <string name="profile_menu_about">Información</string>
+    <string name="profile_menu_privacy">Política de privacidad</string>
+    <string name="profile_menu_support">Contacto y soporte</string>
+    <string name="profile_sessions_completed">Sesiones completadas</string>
+    <string name="profile_total_time">Tiempo total</string>
+    <string name="profile_streak">Racha de días</string>
+    <string name="edit_profile_name">Nombre</string>
+    <string name="edit_profile_email">Correo (opcional)</string>
+    <string name="edit_profile_save">Guardar</string>
+    <string name="history_title">Actividad reciente</string>
+    <string name="history_empty">No hay actividad reciente</string>
 </resources>

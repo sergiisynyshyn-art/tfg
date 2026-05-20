@@ -1,5 +1,7 @@
 package com.example.serenum;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -17,10 +19,17 @@ import java.util.Properties;
  */
 public class EmailSender {
 
-    // Credenciales de Gmail (CONFIGURAR CON TUS CREDENCIALES REALES)
+    // Credenciales de Gmail por defecto (CONFIGURAR CON TUS CREDENCIALES REALES)
     // IMPORTANTE: Reemplaza estos valores con tu email y contraseña de aplicación de Gmail
+    // Puedes sobrescribir estas credenciales en tiempo de ejecución usando
+    // EmailSender.actualizarCredenciales(context, email, password)
     private static final String EMAIL_FROM = "TU_EMAIL@gmail.com";  // ← CAMBIA ESTO
     private static final String EMAIL_PASSWORD = "TU_CONTRASEÑA_APP"; // ← CAMBIA ESTO
+
+    // SharedPreferences para guardar credenciales en tiempo de ejecución (no encriptado aquí)
+    private static final String PREFS_NAME = "email_sender_prefs";
+    private static final String PREF_KEY_EMAIL = "sender_email";
+    private static final String PREF_KEY_PASSWORD = "sender_password";
 
     // Propiedades SMTP para Gmail
     private static final String SMTP_HOST = "smtp.gmail.com";
@@ -51,7 +60,7 @@ public class EmailSender {
      * @param usuarioNombre Nombre del usuario para personalizar el mensaje
      * @param callback Callback para recibir el resultado del envío
      */
-    public static void enviarCorreoBienvenida(String usuarioEmail, String usuarioNombre, EmailCallback callback) {
+    public static void enviarCorreoBienvenida(Context context, String usuarioEmail, String usuarioNombre, EmailCallback callback) {
         // Crear un thread separado para no bloquear la UI
         new Thread(() -> {
             try {
@@ -66,16 +75,40 @@ public class EmailSender {
                 props.put("mail.smtp.timeout", "5000"); // Timeout de envío
 
                 // Crear sesión SMTP con autenticación
+                // Usar credenciales por defecto, variables de entorno o SharedPreferences si se han seteado
+                String sender = EMAIL_FROM;
+                String senderPassword = EMAIL_PASSWORD;
+                try {
+                    String spEmail = System.getProperty("serenum.email.from");
+                    String spPass = System.getProperty("serenum.email.password");
+                    if (spEmail != null && !spEmail.isEmpty()) sender = spEmail;
+                    if (spPass != null && !spPass.isEmpty()) senderPassword = spPass;
+                } catch (Exception ignored) {}
+
+                try {
+                    if (context != null) {
+                        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+                        String prefEmail = prefs.getString(PREF_KEY_EMAIL, null);
+                        String prefPass = prefs.getString(PREF_KEY_PASSWORD, null);
+                        if (prefEmail != null && !prefEmail.isEmpty()) sender = prefEmail;
+                        if (prefPass != null && !prefPass.isEmpty()) senderPassword = prefPass;
+                    }
+                } catch (Exception ignored) {}
+
+                // Crear variables finales para usarlas dentro del Authenticator interno
+                final String finalSender = sender;
+                final String finalSenderPassword = senderPassword;
+
                 Session session = Session.getInstance(props, new jakarta.mail.Authenticator() {
                     @Override
                     protected jakarta.mail.PasswordAuthentication getPasswordAuthentication() {
-                        return new jakarta.mail.PasswordAuthentication(EMAIL_FROM, EMAIL_PASSWORD);
+                        return new jakarta.mail.PasswordAuthentication(finalSender, finalSenderPassword);
                     }
                 });
 
                 // Crear el mensaje de correo
                 Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(EMAIL_FROM));
+                message.setFrom(new InternetAddress(finalSender));
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(usuarioEmail));
 
                 // Configurar el asunto del correo
@@ -125,8 +158,19 @@ public class EmailSender {
      * @param email Email de la cuenta Gmail
      * @param password Contraseña de aplicación de Gmail
      */
-    public static void actualizarCredenciales(String email, String password) {
-        // Esta es una solución simple. En producción, se debe encriptar estas credenciales
-        // Por ejemplo, usando SharedPreferences encriptado o AndroidKeyStore
+    public static void actualizarCredenciales(Context context, String email, String password) {
+        // Guardar credenciales en SharedPreferences privado.
+        // ADVERTENCIA: Esto almacena la contraseña en claro en el almacenamiento interno de la app.
+        // En producción usa EncryptedSharedPreferences o AndroidKeyStore para protegerlas.
+        if (context == null) return;
+        try {
+            SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString(PREF_KEY_EMAIL, email);
+            editor.putString(PREF_KEY_PASSWORD, password);
+            editor.apply();
+        } catch (Exception e) {
+            // No hacemos más aquí; el caller puede registrar o manejar el error
+        }
     }
 }

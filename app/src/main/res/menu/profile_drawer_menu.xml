@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_faq"
+        android:title="@string/profile_menu_faq"
+        android:icon="@android:drawable/ic_menu_help" />
+    <item
+        android:id="@+id/menu_about"
+        android:title="@string/profile_menu_about"
+        android:icon="@android:drawable/ic_menu_info_details" />
+    <item
+        android:id="@+id/menu_privacy"
+        android:title="@string/profile_menu_privacy"
+        android:icon="@android:drawable/ic_menu_view" />
+    <item
+        android:id="@+id/menu_support"
+        android:title="@string/profile_menu_support"
+        android:icon="@android:drawable/ic_menu_send" />
+    <item
+        android:id="@+id/menu_settings_advanced"
+        android:title="Ajustes avanzados"
+        android:icon="@android:drawable/ic_menu_preferences" />
+</menu>
+

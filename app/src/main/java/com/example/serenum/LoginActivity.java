@@ -1,9 +1,13 @@
 package com.example.serenum;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.widget.Toast;
+import android.util.Log;
 import com.google.android.material.button.MaterialButton;
 
 import androidx.activity.EdgeToEdge;
@@ -24,6 +28,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import java.util.Locale;
 
 /**
  * LoginActivity proporciona la interfaz de inicio de sesión con Google y correo.
@@ -49,27 +55,81 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        try {
+            Log.d("LoginActivity", "onCreate: iniciando");
+            EdgeToEdge.enable(this);
+            setContentView(R.layout.activity_main);
+            Log.d("LoginActivity", "onCreate: layout establecido");
 
-        // Aplica los márgenes del sistema (notch, status bar, etc.)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+            // Aplica los márgenes del sistema (notch, status bar, etc.)
+            android.view.View mainContainer = findViewById(R.id.main);
+            final int basePaddingLeft = mainContainer.getPaddingLeft();
+            final int basePaddingTop = mainContainer.getPaddingTop();
+            final int basePaddingRight = mainContainer.getPaddingRight();
+            final int basePaddingBottom = mainContainer.getPaddingBottom();
 
-        // Inicializar el DatabaseHelper
-        databaseHelper = new DatabaseHelper(this);
+            ViewCompat.setOnApplyWindowInsetsListener(mainContainer, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(
+                        basePaddingLeft + systemBars.left,
+                        basePaddingTop + systemBars.top,
+                        basePaddingRight + systemBars.right,
+                        basePaddingBottom + systemBars.bottom
+                );
+                return insets;
+            });
+            Log.d("LoginActivity", "onCreate: window insets configurado");
 
-        // Inicializar FirebaseAuth
-        firebaseAuth = FirebaseAuth.getInstance();
+            // Inicializar el DatabaseHelper
+            try {
+                databaseHelper = new DatabaseHelper(this);
+                Log.d("LoginActivity", "onCreate: DatabaseHelper inicializado");
+            } catch (Exception e) {
+                Log.e("LoginActivity", "Error inicializando DatabaseHelper", e);
+                Toast.makeText(this, "Error BD: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            }
 
-        // Configurar Google Sign-In
-        configurarGoogleSignIn();
+            // Inicializar FirebaseAuth
+            try {
+                firebaseAuth = FirebaseAuth.getInstance();
+                Log.d("LoginActivity", "onCreate: Firebase inicializado");
+            } catch (Exception e) {
+                Log.e("LoginActivity", "Error inicializando Firebase", e);
+                Toast.makeText(this, "Error Firebase: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            }
 
-        // Configurar los listeners de los botones
-        setupLoginButtons();
+            // Configurar Google Sign-In
+            try {
+                configurarGoogleSignIn();
+                Log.d("LoginActivity", "onCreate: Google Sign-In configurado");
+            } catch (Exception e) {
+                Log.e("LoginActivity", "Error configurando Google Sign-In", e);
+                Toast.makeText(this, "Error GoogleSignIn: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            }
+
+            // Configurar los listeners de los botones
+            try {
+                setupLoginButtons();
+                Log.d("LoginActivity", "onCreate: Botones configurados");
+            } catch (Exception e) {
+                Log.e("LoginActivity", "Error configurando botones", e);
+                Toast.makeText(this, "Error botones: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            }
+
+            Log.d("LoginActivity", "onCreate: completado exitosamente");
+        } catch (Exception e) {
+            Log.e("LoginActivity", "Error fatal en onCreate", e);
+            Toast.makeText(this, "Error fatal: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            finish();
+        }
     }
 
     /**
@@ -103,51 +163,62 @@ public class LoginActivity extends AppCompatActivity {
      * Configura los listeners (escuchadores) de los botones del login.
      */
     private void setupLoginButtons() {
-        // Obtener referencias a los botones desde el layout XML (MaterialButton para consistencia)
-        MaterialButton btnLoginEmail = findViewById(R.id.btnLoginEmail);
-        MaterialButton btnGoogle = findViewById(R.id.btnGoogle);
-        MaterialButton txtGoRegister = findViewById(R.id.txtGoRegister);
+        try {
+            // Obtener referencias a los botones desde el layout XML (MaterialButton para consistencia)
+            MaterialButton btnLoginEmail = findViewById(R.id.btnLoginEmail);
+            MaterialButton btnGoogle = findViewById(R.id.btnGoogle);
+            MaterialButton txtGoRegister = findViewById(R.id.txtGoRegister);
 
-        // Crear el ActivityResultLauncher para Google Sign-In
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK) {
-                        handlerSignInResult(result.getData());
-                    }
-                }
-        );
-
-        // Listener para el botón Google
-        btnGoogle.setOnClickListener(v -> {
-            if (mGoogleSignInClient == null) {
-                mostrarError("Google Sign-In no está configurado correctamente");
+            if (btnLoginEmail == null || btnGoogle == null || txtGoRegister == null) {
+                Log.e("LoginActivity", "Una o más vistas no encontradas en el layout");
+                Toast.makeText(this, "Error: Layout incorrecto", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            // Mostrar mensaje de inicio de sesión
-            Toast.makeText(LoginActivity.this,
-                    "Iniciando sesión con Google...",
-                    Toast.LENGTH_SHORT).show();
+            // Crear el ActivityResultLauncher para Google Sign-In
+            ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == RESULT_OK) {
+                            handlerSignInResult(result.getData());
+                        }
+                    }
+            );
 
-            // Lanzar el intent de Google Sign-In
-            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-            activityResultLauncher.launch(signInIntent);
-        });
+            // Listener para el botón Google
+            btnGoogle.setOnClickListener(v -> {
+                if (mGoogleSignInClient == null) {
+                    mostrarError("Google Sign-In no está configurado correctamente");
+                    return;
+                }
 
-        // Listener para el botón "Iniciar sesión con correo"
-        btnLoginEmail.setOnClickListener(v -> {
-            // Navegar a LoginEmailActivity
-            Intent intent = new Intent(LoginActivity.this, LoginEmailActivity.class);
-            startActivity(intent);
-        });
+                // Mostrar mensaje de inicio de sesión
+                Toast.makeText(LoginActivity.this,
+                        "Iniciando sesión con Google...",
+                        Toast.LENGTH_SHORT).show();
 
-        // Listener para el texto "¿No tienes cuenta?"
-        txtGoRegister.setOnClickListener(v -> {
-            // Navegar a RegisterActivity
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        });
+                // Lanzar el intent de Google Sign-In
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                activityResultLauncher.launch(signInIntent);
+            });
+
+            // Listener para el botón "Iniciar sesión con correo"
+            btnLoginEmail.setOnClickListener(v -> {
+                // Navegar a LoginEmailActivity
+                Intent intent = new Intent(LoginActivity.this, LoginEmailActivity.class);
+                startActivity(intent);
+            });
+
+            // Listener para el texto "¿No tienes cuenta?"
+            txtGoRegister.setOnClickListener(v -> {
+                // Navegar a RegisterActivity
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            });
+        } catch (Exception e) {
+            Log.e("LoginActivity", "Error en setupLoginButtons", e);
+            Toast.makeText(this, "Error configurando botones: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
@@ -238,11 +309,26 @@ public class LoginActivity extends AppCompatActivity {
 
         } else if (resultado == -1) {
             // Usuario ya existe en la BD
-            Toast.makeText(this,
-                    "El usuario ya existe en el sistema",
-                    Toast.LENGTH_SHORT).show();
+            // Enviar igualmente un correo notificando la conexión (sin bloquear la navegación)
+            Log.d("LoginActivity", "guardarUsuarioEnBD: usuario existe, enviando correo de notificacion a " + email);
+            EmailSender.EmailCallback notifyCallback = new EmailSender.EmailCallback() {
+                @Override
+                public void onSuccess() {
+                    Log.d("LoginActivity", "Correo de notificación enviado correctamente a " + email);
+                }
 
-            // Ir a la pantalla principal sin enviar correo
+                @Override
+                public void onError(String error) {
+                    Log.e("LoginActivity", "Error enviando correo de notificación: " + error);
+                }
+            };
+            EmailSender.enviarCorreoBienvenida(LoginActivity.this, email, nombre, notifyCallback);
+
+            // Usuario ya existente: no repetir onboarding. Si faltaba marca local,
+            // la registramos como migración para evitar ciclos.
+            if (!hasUserCompletedOnboarding(email)) {
+                markUserOnboardingCompleted(email);
+            }
             navegarAMainActivity();
         } else {
             // Error en la inserción
@@ -267,7 +353,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
 
                 // Navegar a la pantalla de bienvenida
-                navegarAWelcomActivity();
+                navegarAWelcomActivity(nombre, email);
             }
 
             @Override
@@ -278,12 +364,12 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
 
                 // Navegar a la pantalla de bienvenida de todas formas
-                navegarAWelcomActivity();
+                navegarAWelcomActivity(nombre, email);
             }
         };
 
         // Enviar correo de bienvenida
-        EmailSender.enviarCorreoBienvenida(email, nombre, callback);
+        EmailSender.enviarCorreoBienvenida(LoginActivity.this, email, nombre, callback);
     }
 
     /**
@@ -306,21 +392,55 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Navega a la pantalla de bienvenida (WelcomeActivity).
      */
-    private void navegarAWelcomActivity() {
+    private void navegarAWelcomActivity(String nombre, String email) {
         // Crear un intent para ir a WelcomeActivity
         Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
 
         // Pasar los datos del usuario a WelcomeActivity
-        if (googleSignInAccount != null) {
-            intent.putExtra("NOMBRE_USUARIO", googleSignInAccount.getDisplayName());
-            intent.putExtra("EMAIL_USUARIO", googleSignInAccount.getEmail());
-        }
+        intent.putExtra("NOMBRE_USUARIO", nombre);
+        intent.putExtra("EMAIL_USUARIO", email);
 
         // Iniciar WelcomeActivity
         startActivity(intent);
 
         // Cerrar LoginActivity
         finish();
+    }
+
+    /**
+     * Navega a la pantalla de onboarding.
+     */
+    private void navegarAOnboarding(String nombre, String email) {
+        Intent intent = new Intent(LoginActivity.this, OnboardingActivity.class);
+        intent.putExtra("NOMBRE_USUARIO", nombre);
+        intent.putExtra("EMAIL_USUARIO", email);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    /**
+     * Verifica si el usuario ya completó el onboarding.
+     */
+    private boolean hasUserCompletedOnboarding(String email) {
+        if (email == null || email.isEmpty()) {
+            return false;
+        }
+        String normalizedEmail = email.trim().toLowerCase(Locale.ROOT);
+        SharedPreferences prefs = getSharedPreferences("onboarding_prefs", MODE_PRIVATE);
+        return prefs.getBoolean("onboarding_completed_" + normalizedEmail, false);
+    }
+
+    /**
+     * Marca onboarding como completado para usuarios existentes (migración de flujo).
+     */
+    private void markUserOnboardingCompleted(String email) {
+        if (email == null || email.isEmpty()) {
+            return;
+        }
+        String normalizedEmail = email.trim().toLowerCase(Locale.ROOT);
+        SharedPreferences prefs = getSharedPreferences("onboarding_prefs", MODE_PRIVATE);
+        prefs.edit().putBoolean("onboarding_completed_" + normalizedEmail, true).apply();
     }
 
     /**
@@ -337,12 +457,45 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d("LoginActivity", "onStart: Verificando autenticación");
+        // Si la actividad fue lanzada tras un logout explícito, no redirigir
+        boolean fromLogout = getIntent() != null && getIntent().getBooleanExtra("from_logout", false);
+        if (fromLogout) {
+            Log.d("LoginActivity", "onStart: Lanzado desde logout - no redirigir");
+            // Limpiar el intent para que futuros onStart no vean este flag
+            setIntent(new Intent());
+            return;
+        }
         // Verificar si el usuario ya está autenticado
         FirebaseUser currentUser = firebaseAuth != null ? firebaseAuth.getCurrentUser() : null;
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (currentUser != null || account != null) {
-            // Si el usuario ya está autenticado, ir a MainActivity
-            navegarAMainActivity();
+            // Si ya hay sesión cacheada, solo auto-redirigimos a Main para cuentas conocidas.
+            // Nunca forzamos onboarding automático al arrancar la app.
+            String email = currentUser != null ? currentUser.getEmail() : (account != null ? account.getEmail() : null);
+            Log.d("LoginActivity", "onStart: Usuario autenticado con email: " + email);
+
+            if (TextUtils.isEmpty(email)) {
+                Log.d("LoginActivity", "onStart: sesión cacheada sin email, mantener pantalla de login");
+                return;
+            }
+
+            boolean completedOnboarding = hasUserCompletedOnboarding(email);
+            boolean existsInLocalDb = databaseHelper != null && databaseHelper.usuarioExiste(email);
+
+            if (completedOnboarding || existsInLocalDb) {
+                if (!completedOnboarding && existsInLocalDb) {
+                    // Backfill para usuarios antiguos que ya existían antes de la marca de onboarding.
+                    markUserOnboardingCompleted(email);
+                }
+                Log.d("LoginActivity", "onStart: cuenta conocida, navegando a MainActivity");
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    navegarAMainActivity();
+                }, 500);
+            } else {
+                // Cuenta no registrada localmente: esperar login explícito para arrancar el flujo nuevo.
+                Log.d("LoginActivity", "onStart: cuenta no reconocida, mantener pantalla de login");
+            }
         }
     }
 

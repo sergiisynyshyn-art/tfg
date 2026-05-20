@@ -73,8 +73,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 2) {
-            // Agregar columna password a la tabla existente
-            db.execSQL("ALTER TABLE " + TABLE_USUARIOS + " ADD COLUMN " + COLUMN_PASSWORD + " TEXT");
+            // Agregar columna password a la tabla existente si no existe
+            try {
+                db.execSQL("ALTER TABLE " + TABLE_USUARIOS + " ADD COLUMN " + COLUMN_PASSWORD + " TEXT");
+            } catch (android.database.sqlite.SQLiteException e) {
+                // La columna ya existe, no hacer nada
+                if (!e.getMessage().contains("duplicate column")) {
+                    throw e;
+                }
+            }
         }
     }
 

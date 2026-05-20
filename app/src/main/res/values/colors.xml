@@ -34,4 +34,12 @@
     <!-- Compatibilidad -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_translucent">#99FFFFFF</color>
+    <color name="survey_card_default">#A6F3FAFF</color>
+    <color name="survey_card_selected">#CDEBFF</color>
+    <color name="card_background_transparent">#4DF3FAFF</color>
+
+    <!-- Routine card colors -->
+    <color name="card_background">#CC87CEEB</color>
+    <color name="card_background_1">#CC87CEEB</color>
 </resources>

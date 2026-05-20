@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SoundsActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/background_image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/mount" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4D000000" />
+
+    <LinearLayout
+        android:id="@+id/mainSounds"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="60dp"
+        android:paddingHorizontal="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnBackSounds"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/app_back"
+                android:padding="10dp"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/quattrocentobold"
+                android:text="@string/sounds_catalog_title"
+                android:textColor="@color/white"
+                android:textSize="28sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/quattrocentoregular"
+            android:text="@string/sounds_catalog_subtitle"
+            android:textColor="@color/white_translucent"
+            android:textSize="15sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Tarjeta: Lluvia -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardSoundRain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="#CC87CEEB"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/lluvia" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:padding="14dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quattrocentobold"
+                                android:text="@string/sound_rain_title"
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/sound_rain_duration"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/sound_rain_description"
+                                android:textColor="@color/white"
+                                android:textSize="13sp" />
+
+                            <ImageButton
+                                android:id="@+id/btnFavoriteSoundRain"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/favorite_toggle"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_star_outline"
+                                app:tint="@color/white" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnOpenSoundRain"
+                                android:layout_width="250dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/sounds_open"
+                                android:textSize="14sp"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                app:backgroundTint="@color/primary"
+                                app:cornerRadius="20dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Tarjeta: Fuego -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardSoundFire"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="#CCFF7043"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/fuego"
+                            android:contentDescription="@string/sound_fire_title" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:padding="14dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quattrocentobold"
+                                android:text="@string/sound_fire_title"
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/sound_fire_duration"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/sound_fire_description"
+                                android:textColor="@color/white"
+                                android:textSize="13sp" />
+
+                            <ImageButton
+                                android:id="@+id/btnFavoriteSoundFire"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/favorite_toggle"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_star_outline"
+                                app:tint="@color/white" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnOpenSoundFire"
+                                android:layout_width="250dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/sounds_open"
+                                android:textSize="14sp"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                app:backgroundTint="@color/primary"
+                                app:cornerRadius="20dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Tarjeta: Bosque -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardSoundForest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="24dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="#CC81C784"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/bosque"
+                            android:contentDescription="@string/sound_forest_title" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:padding="14dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quattrocentobold"
+                                android:text="@string/sound_forest_title"
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/sound_forest_duration"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/sound_forest_description"
+                                android:textColor="@color/white"
+                                android:textSize="13sp" />
+
+                            <ImageButton
+                                android:id="@+id/btnFavoriteSoundForest"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/favorite_toggle"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_star_outline"
+                                app:tint="@color/white" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnOpenSoundForest"
+                                android:layout_width="250dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/sounds_open"
+                                android:textSize="14sp"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                app:backgroundTint="@color/primary"
+                                app:cornerRadius="20dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Tarjeta: Viento -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardSoundWind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="32dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="#CCB0BEC5"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/viento"
+                            android:contentDescription="@string/sound_wind_title" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:padding="14dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quattrocentobold"
+                                android:text="@string/sound_wind_title"
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/sound_wind_duration"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/sound_wind_description"
+                                android:textColor="@color/white"
+                                android:textSize="13sp" />
+
+                            <ImageButton
+                                android:id="@+id/btnFavoriteSoundWind"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/favorite_toggle"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_star_outline"
+                                app:tint="@color/white" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnOpenSoundWind"
+                                android:layout_width="250dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/sounds_open"
+                                android:textSize="14sp"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                app:backgroundTint="@color/primary"
+                                app:cornerRadius="20dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Tarjeta: Olas -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardSoundWaves"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="32dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="#CC4FB3CE"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/olas"
+                            android:contentDescription="@string/sound_waves_title" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:padding="14dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quattrocentobold"
+                                android:text="@string/sound_waves_title"
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/sound_waves_duration"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/sound_waves_description"
+                                android:textColor="@color/white"
+                                android:textSize="13sp" />
+
+                            <ImageButton
+                                android:id="@+id/btnFavoriteSoundWaves"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/favorite_toggle"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_star_outline"
+                                app:tint="@color/white" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnOpenSoundWaves"
+                                android:layout_width="250dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/sounds_open"
+                                android:textSize="14sp"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                app:backgroundTint="@color/primary"
+                                app:cornerRadius="20dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>

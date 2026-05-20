@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple gradient placeholder para la imagen de la meditación -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="12dp" />
+    <gradient
+        android:startColor="#AA6FC3FF"
+        android:endColor="#6645A1B8"
+        android:angle="270" />
+    <size android:height="140dp" android:width="220dp" />
+</shape>
+

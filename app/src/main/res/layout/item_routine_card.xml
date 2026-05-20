@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardRoutine"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/card_background_1"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Imagen de la rutina -->
+        <ImageView
+            android:id="@+id/imgRoutine"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:contentDescription="@string/routine_image_desc"
+            android:scaleType="centerCrop"
+            android:src="@drawable/meditation_image_placeholder" />
+
+        <!-- Contenido de la tarjeta -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="16dp">
+
+            <!-- Título de la rutina -->
+            <TextView
+                android:id="@+id/tvRoutineTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quattrocentobold"
+                android:text="@string/routine_title_placeholder"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <!-- Duración -->
+            <TextView
+                android:id="@+id/tvRoutineDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/quattrocentoregular"
+                android:text="@string/routine_duration_placeholder"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <!-- Descripción -->
+            <TextView
+                android:id="@+id/tvRoutineDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/quattrocentoregular"
+                android:text="@string/routine_description_placeholder"
+                android:textColor="@color/white_translucent"
+                android:textSize="13sp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:gravity="center_horizontal" />
+
+            <!-- Botón de abrir rutina -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOpenRoutine"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="14dp"
+                android:text="@string/routines_open"
+                android:textSize="14sp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/primary"
+                app:cornerRadius="20dp"
+                app:icon="@drawable/ic_play_white"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+
+

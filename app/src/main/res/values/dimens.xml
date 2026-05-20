@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Card dimensions -->
+    <dimen name="card_padding_horizontal">16dp</dimen>
+    <dimen name="card_padding_vertical">14dp</dimen>
+    <dimen name="card_corner_radius">24dp</dimen>
+    <dimen name="card_elevation">0dp</dimen>
+
+    <!-- Card image dimensions -->
+    <dimen name="card_image_height">140dp</dimen>
+
+    <!-- Player dimensions -->
+    <dimen name="player_seekbar_height">4dp</dimen>
+    <dimen name="player_button_height">48dp</dimen>
+    <dimen name="player_button_width">200dp</dimen>
+    <dimen name="player_corner_radius">24dp</dimen>
+</resources>
+

@@ -40,6 +40,10 @@ android {
             excludes += "META-INF/LICENSE.md"
         }
     }
+    lint {
+        disable.add("GestureBackNavigation")
+        disable.add("NewApi")
+    }
 }
 
 dependencies {

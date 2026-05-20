@@ -1,36 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".WelcomeActivity">
+
+    <!-- Imagen de fondo -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/mount"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/background_image" />
+
+    <!-- Overlay oscuro para mejorar contraste del texto -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:alpha="0.5" />
+
+    <!-- Contenido principal -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="60dp"
+        tools:context=".WelcomeActivity">
+
+    <ImageButton
+        android:id="@+id/btnBackWelcome"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_back"
+        android:padding="10dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
     <!-- Logo o ícono de la app -->
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="80dp"
-        android:contentDescription="Logo de Serenum"
-        android:src="@drawable/ic_launcher_foreground"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/yinyangphilosophy"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/black" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Título de bienvenida -->
     <TextView
         android:id="@+id/txtBienvenida"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="¡Bienvenido a Serenum!"
-        android:textColor="@color/black"
+        android:layout_marginTop="24dp"
+        android:text="@string/welcome_title"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:gravity="center"
+        android:fontFamily="@font/quattrocentobold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
@@ -41,15 +78,60 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:gravity="center"
-        android:text="Tu cuenta de Google se ha conectado correctamente.\n\nTe estamos redirigiendo a la aplicación..."
-        android:textColor="@color/black"
+        android:text="@string/welcome_message"
+        android:textColor="@color/white"
         android:textSize="16sp"
+        android:fontFamily="@font/quattrocentoregular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtBienvenida" />
+
+    <!-- Foto de perfil del usuario (si está disponible) -->
+    <ImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/user_avatar"
+        android:scaleType="centerCrop"
+        android:src="@drawable/monje"
+        android:background="@drawable/circle_grey_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMensaje" />
+
+    <!-- Contenedor con botones de acción -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnContinue"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/continue_button"
+        android:fontFamily="@font/quattrocentobold"
+        android:textAlignment="center"
+        android:gravity="center"
+        app:cornerRadius="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgProfile" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSignOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/logout_button"
+        android:fontFamily="@font/quattrocentoregular"
+        android:textAlignment="center"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        app:layout_constraintTop_toBottomOf="@+id/btnContinue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Indicador de carga -->
     <ProgressBar
@@ -65,14 +147,20 @@
     <!-- Texto de "Redirigiendo..." -->
     <TextView
         android:id="@+id/txtRedirigiendo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Redirigiendo..."
-        android:textColor="@color/black"
+        android:text="@string/redirecting"
+        android:textColor="@color/white"
         android:textSize="14sp"
+        android:fontFamily="@font/quattrocentoregular"
+        android:gravity="center"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
+

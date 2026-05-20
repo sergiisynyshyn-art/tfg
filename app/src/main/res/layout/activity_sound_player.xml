@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SoundPlayerActivity">
+
+    <!-- Fondo -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/background_image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/mount" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66000000" />
+
+    <ImageButton
+        android:id="@+id/btnBackSoundPlayer"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_back"
+        android:padding="10dp"
+        android:src="@drawable/ic_arrow_back"
+        app:tint="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="32dp"
+        android:paddingTop="120dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            app:cardCornerRadius="120dp"
+            app:cardElevation="12dp"
+            app:strokeColor="@color/white_translucent"
+            app:strokeWidth="2dp">
+
+            <ImageView
+                android:id="@+id/imgSoundFull"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/meditation_image_placeholder" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tvSoundFullTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/quattrocentobold"
+            android:text="Título del Sonido"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/tvSoundFullDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/quattrocentoregular"
+            android:gravity="center"
+            android:text="Descripción suave del ambiente"
+            android:textColor="@color/white_translucent"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <SeekBar
+                android:id="@+id/seekBarSound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progressTint="@color/white"
+                android:thumbTint="@color/white" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="12dp">
+
+                <TextView
+                    android:id="@+id/tvSoundElapsed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quattrocentoregular"
+                    android:text="0:00"
+                    android:textColor="@color/white_translucent"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvSoundTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/quattrocentoregular"
+                    android:text="0:00"
+                    android:textColor="@color/white_translucent"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnSoundPlayPause"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/circle_grey_bg"
+            android:backgroundTint="@color/primary"
+            android:elevation="8dp"
+            android:padding="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_play_white" />
+
+    </LinearLayout>
+
+</FrameLayout>

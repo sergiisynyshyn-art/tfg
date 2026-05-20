@@ -1,16 +1,23 @@
 package com.example.serenum;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.Locale;
 
 /**
  * LoginEmailActivity permite a los usuarios iniciar sesión con email y contraseña.
@@ -21,6 +28,8 @@ public class LoginEmailActivity extends AppCompatActivity {
     // Componentes de la UI
     private EditText etEmail, etPassword;
     private Button btnLogin, btnVolver;
+    private ImageButton btnBackLoginEmail;
+    private ImageButton btnTogglePassword;
 
     // DatabaseHelper para gestionar la BD
     private DatabaseHelper databaseHelper;
@@ -54,8 +63,17 @@ public class LoginEmailActivity extends AppCompatActivity {
     private void inicializarVistas() {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+        btnTogglePassword = findViewById(R.id.btnTogglePassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnVolver = findViewById(R.id.btnVolver);
+        btnBackLoginEmail = findViewById(R.id.btnBackLoginEmail);
+        // Mejorar compatibilidad con el Autofill Framework (gestores de contraseñas)
+        try {
+            etEmail.setAutofillHints(View.AUTOFILL_HINT_EMAIL_ADDRESS);
+            etPassword.setAutofillHints(View.AUTOFILL_HINT_PASSWORD);
+        } catch (Exception ignored) {
+            // En API antiguas puede no existir el método; ignorar.
+        }
     }
 
     /**
@@ -76,6 +94,32 @@ public class LoginEmailActivity extends AppCompatActivity {
             startActivity(intent);
             finish(); // Cerrar LoginEmailActivity
         });
+
+        if (btnBackLoginEmail != null) {
+            btnBackLoginEmail.setOnClickListener(v -> onBackPressed());
+        }
+
+        // Toggle para mostrar/ocultar contraseña (mantiene aspecto visual igual al campo de email)
+        if (btnTogglePassword != null && etPassword != null) {
+            btnTogglePassword.setOnClickListener(v -> {
+                // Si la contraseña está oculta, mostrarla
+                if (etPassword.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    btnTogglePassword.setImageResource(R.drawable.m3_avd_show_password);
+                    btnTogglePassword.setContentDescription("Ocultar contraseña");
+                } else {
+                    // Ocultar contraseña
+                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    btnTogglePassword.setImageResource(R.drawable.m3_avd_hide_password);
+                    btnTogglePassword.setContentDescription("Mostrar contraseña");
+                }
+                // Mantener el cursor al final
+                etPassword.setSelection(etPassword.getText() != null ? etPassword.getText().length() : 0);
+            });
+            // Asegurar que inicialmente esté oculta
+            etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            btnTogglePassword.setImageResource(R.drawable.m3_avd_hide_password);
+        }
     }
 
     /**
@@ -123,12 +167,18 @@ public class LoginEmailActivity extends AppCompatActivity {
         if (usuario != null) {
             // Login exitoso
             String nombreUsuario = usuario[1]; // nombre
-            Toast.makeText(this,
-                    "¡Bienvenido de vuelta, " + nombreUsuario + "!",
-                    Toast.LENGTH_LONG).show();
-
-            // Ir a la pantalla de bienvenida
-            navegarAWelcomActivity(nombreUsuario, email);
+            if (hasUserCompletedOnboarding(email)) {
+                Toast.makeText(this,
+                        "¡Bienvenido de vuelta, " + nombreUsuario + "!",
+                        Toast.LENGTH_LONG).show();
+                navegarAMainActivity(nombreUsuario);
+            } else {
+                Toast.makeText(this,
+                        "¡Bienvenido, " + nombreUsuario + "!",
+                        Toast.LENGTH_LONG).show();
+                // Solo usuarios nuevos o sin onboarding completo pasan por bienvenida/onboarding
+                navegarAWelcomActivity(nombreUsuario, email);
+            }
 
         } else {
             // Login fallido
@@ -151,5 +201,22 @@ public class LoginEmailActivity extends AppCompatActivity {
         intent.putExtra("EMAIL_USUARIO", email);
         startActivity(intent);
         finish(); // Cerrar LoginEmailActivity
+    }
+
+    private void navegarAMainActivity(String nombre) {
+        Intent intent = new Intent(LoginEmailActivity.this, MainActivity.class);
+        intent.putExtra("NOMBRE_USUARIO", nombre);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private boolean hasUserCompletedOnboarding(String email) {
+        if (email == null || email.isEmpty()) {
+            return false;
+        }
+        String normalizedEmail = email.trim().toLowerCase(Locale.ROOT);
+        SharedPreferences prefs = getSharedPreferences("onboarding_prefs", MODE_PRIVATE);
+        return prefs.getBoolean("onboarding_completed_" + normalizedEmail, false);
     }
 }

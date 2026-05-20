@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Text appearance used inside input fields -->
+    <style name="TextAppearance.Serenum.Input" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">@font/quattrocentoregular</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- Hint text appearance for inputs -->
+    <style name="TextAppearance.Serenum.InputHint" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:fontFamily">@font/quattrocentoregular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <!-- Global TextInputLayout style for Serenum inputs -->
+    <style name="SerenumInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Make the TextInputLayout not draw an internal filled background (we use CardView or container) -->
+        <item name="boxBackgroundMode">none</item>
+        <!-- Stroke to match the login card subtle stroke -->
+        <item name="boxStrokeColor">@color/text_hint</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <!-- Hint appearance -->
+        <item name="hintTextAppearance">@style/TextAppearance.Serenum.InputHint</item>
+        <!-- Shape & corner radius to match cards (if outline used) -->
+        <item name="shapeAppearance">@style/ShapeAppearance.Serenum.Input</item>
+    </style>
+
+    <!-- Shape used for inputs if needed -->
+    <style name="ShapeAppearance.Serenum.Input" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+</resources>
+

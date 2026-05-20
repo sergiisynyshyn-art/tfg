@@ -3,7 +3,31 @@
     <style name="Base.Theme.Serenum" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Aplicar Quattrocento globalmente -->
+        <item name="android:fontFamily">@font/quattrocentoregular</item>
+        <item name="fontFamily">@font/quattrocentoregular</item>
     </style>
 
     <style name="Theme.Serenum" parent="Base.Theme.Serenum" />
+
+    <!-- Estilos de texto con Quattrocento -->
+    <style name="TextAppearance.Serenum.Headline" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:fontFamily">@font/quattrocentobold</item>
+        <item name="fontFamily">@font/quattrocentobold</item>
+    </style>
+
+    <style name="TextAppearance.Serenum.Title" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:fontFamily">@font/quattrocentobold</item>
+        <item name="fontFamily">@font/quattrocentobold</item>
+    </style>
+
+    <style name="TextAppearance.Serenum.Body" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">@font/quattrocentoregular</item>
+        <item name="fontFamily">@font/quattrocentoregular</item>
+    </style>
+
+    <!-- Estilo para imágenes circulares con ShapeableImageView -->
+    <style name="CircleImage" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

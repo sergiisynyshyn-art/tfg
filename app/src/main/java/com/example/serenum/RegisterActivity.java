@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     // Componentes de la UI
     private EditText etNombre, etEmail, etPassword, etConfirmPassword;
     private Button btnRegistrar, btnVolver;
+    private ImageButton btnBackRegister;
 
     // DatabaseHelper para gestionar la BD
     private DatabaseHelper databaseHelper;
@@ -58,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnRegistrar = findViewById(R.id.btnRegistrar);
         btnVolver = findViewById(R.id.btnVolver);
+        btnBackRegister = findViewById(R.id.btnBackRegister);
     }
 
     /**
@@ -78,6 +81,10 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(intent);
             finish(); // Cerrar RegisterActivity
         });
+
+        if (btnBackRegister != null) {
+            btnBackRegister.setOnClickListener(v -> onBackPressed());
+        }
     }
 
     /**
@@ -206,7 +213,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
 
-        EmailSender.enviarCorreoBienvenida(email, nombre, callback);
+        EmailSender.enviarCorreoBienvenida(RegisterActivity.this, email, nombre, callback);
     }
 
     /**

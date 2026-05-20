@@ -1,24 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:padding="24dp"
     tools:context=".LoginEmailActivity">
+
+    <!-- Imagen de fondo -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/mount"
+        android:scaleType="centerCrop"
+        android:contentDescription="Background image" />
+
+    <!-- Overlay oscuro para mejorar contraste del texto -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:alpha="0.5" />
+
+    <!-- Contenido principal con scroll -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingTop="40dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp"
+            tools:context=".LoginEmailActivity">
+
+    <ImageButton
+        android:id="@+id/btnBackLoginEmail"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_back"
+        android:padding="10dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
     <!-- Título -->
     <TextView
         android:id="@+id/txtTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:text="Iniciar Sesión"
-        android:textColor="@color/black"
-        android:textSize="28sp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         android:textStyle="bold"
+        android:fontFamily="@font/quattrocentobold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,79 +69,153 @@
         android:id="@+id/txtSubtitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:text="Ingresa tus credenciales"
-        android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:fontFamily="@font/quattrocentoregular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTitulo" />
 
-    <!-- Campo Email -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilEmail"
+    <!-- Campo Email (igual estructura que Contraseña) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:hint="Correo electrónico"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:padding="4dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        app:cardBackgroundColor="@color/surface_light"
+        app:strokeColor="@color/text_hint"
+        app:strokeWidth="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSubtitulo">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etEmail"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:maxLines="1" />
+            android:layout_height="wrap_content">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:background="@android:color/transparent"
+                android:minHeight="36dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="44dp"
+                android:gravity="center_vertical"
+                android:textSize="13sp"
+                android:maxLines="1"
+                android:hint="Correo electrónico" />
 
-    <!-- Campo Contraseña -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilPassword"
+        </FrameLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Campo Contraseña con CardView para sombra y redondez -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Contraseña"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:padding="4dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        app:cardBackgroundColor="@color/surface_light"
+        app:strokeColor="@color/text_hint"
+        app:strokeWidth="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilEmail"
-        app:passwordToggleEnabled="true">
+        app:layout_constraintTop_toBottomOf="@+id/cardEmail">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPassword"
+        <!-- Reemplazamos el endIcon del TextInputLayout por un ImageButton superpuesto
+             para que el campo de contraseña tenga la misma apariencia que el de arriba. -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:maxLines="1" />
+            android:layout_height="wrap_content">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:background="@android:color/transparent"
+                android:minHeight="36dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="44dp"
+                android:gravity="center_vertical"
+                android:textSize="13sp"
+                android:maxLines="1"
+                android:hint="Contraseña" />
+
+            <ImageButton
+                android:id="@+id/btnTogglePassword"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="6dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Mostrar contraseña"
+                android:padding="6dp"
+                android:src="@drawable/m3_avd_hide_password"
+                app:tint="@color/text_hint" />
+
+        </FrameLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Botón Login -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:text="Iniciar Sesión"
-        android:textSize="16sp"
+        android:textSize="14sp"
+        app:backgroundTint="@color/secondary"
+        app:cornerRadius="12dp"
+        app:strokeWidth="0dp"
+        android:fontFamily="@font/quattrocentobold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/cardPassword" />
 
     <!-- Botón Volver -->
     <Button
         android:id="@+id/btnVolver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:background="?android:attr/selectableItemBackground"
         android:text="¿No tienes cuenta? Regístrate"
-        android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:fontFamily="@font/quattrocentoregular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</FrameLayout>
+

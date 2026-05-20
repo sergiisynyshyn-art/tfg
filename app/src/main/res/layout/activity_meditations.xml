@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MeditationsActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/background_image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/mount" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4D000000" />
+
+    <LinearLayout
+        android:id="@+id/mainMeditations"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingTop="40dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnBackMeditations"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/meditations_back"
+                android:padding="10dp"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/quattrocentobold"
+                android:text="@string/meditations_catalog_title"
+                android:textColor="@color/white"
+                android:textSize="28sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/quattrocentoregular"
+            android:text="@string/meditations_catalog_subtitle"
+            android:textColor="@color/white_translucent"
+            android:textSize="15sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardMeditationRespiracion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="#CC87CEEB"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:contentDescription="@string/meditation_image_desc"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/medit1" />
+
+                            <ImageButton
+                                android:id="@+id/btnFavoriteMeditationRespiracion"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="end|top"
+                                android:layout_margin="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/favorite_toggle"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_star_outline"
+                                app:tint="@color/white" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:padding="14dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quattrocentobold"
+                                android:text="@string/meditation_title"
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/meditation_duration"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/meditation_description"
+                                android:textColor="@color/white"
+                                android:textSize="13sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnOpenMeditationRespiracion"
+                                android:layout_width="250dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/meditations_open"
+                                android:textSize="14sp"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                app:backgroundTint="@color/primary"
+                                app:cornerRadius="20dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Segunda tarjeta: medit2 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardMeditationMedit2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="#CC87CEEB"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:contentDescription="@string/meditation_image_desc"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/medit2" />
+
+                            <ImageButton
+                                android:id="@+id/btnFavoriteMeditationMedit2"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="end|top"
+                                android:layout_margin="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/favorite_toggle"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_star_outline"
+                                app:tint="@color/white" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:padding="12dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quattrocentobold"
+                                android:text="@string/meditation2_title"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/meditation2_duration"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/meditation2_description"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnOpenMeditationMedit2"
+                                android:layout_width="200dp"
+                                android:layout_height="38dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/meditations_open"
+                                android:textSize="13sp"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                app:backgroundTint="@color/primary"
+                                app:cornerRadius="18dp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Tercera tarjeta: medit3 (Dormir) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardMeditationMedit3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="#CC87CEEB"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:contentDescription="@string/meditation_image_desc"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/dormir" />
+
+                            <ImageButton
+                                android:id="@+id/btnFavoriteMeditationMedit3"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="end|top"
+                                android:layout_margin="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/favorite_toggle"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_star_outline"
+                                app:tint="@color/white" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:padding="12dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quattrocentobold"
+                                android:text="@string/meditation3_title"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/meditation3_duration"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:fontFamily="@font/quattrocentoregular"
+                                android:text="@string/meditation3_description"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnOpenMeditationMedit3"
+                                android:layout_width="200dp"
+                                android:layout_height="38dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/meditations_open"
+                                android:textSize="13sp"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                app:backgroundTint="@color/primary"
+                                app:cornerRadius="18dp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>
+

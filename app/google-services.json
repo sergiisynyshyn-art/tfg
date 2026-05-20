@@ -12,7 +12,20 @@
           "package_name": "com.example.serenum"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "742746741542-rajieai79n46o8pfsrh4cskmum4dlvic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.serenum",
+            "certificate_hash": "f18a64ae50e4ae932aea2ace45866f8490b573e2"
+          }
+        },
+        {
+          "client_id": "742746741542-rkujb882qp3c9h2kr8un8m70jnp2i8b7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB4TYUIdM9XlZTOiCv5M8TZFBQR7oCxqJk"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "742746741542-rkujb882qp3c9h2kr8un8m70jnp2i8b7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
